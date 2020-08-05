@@ -1,2 +1,6 @@
+include ':feature_episodes'
+include ':feature_locations'
+include ':feature_characters'
+include ':core'
 include ':app'
 rootProject.name = "rick-and-morty"
