@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.aleksandrov.core.data.Character
+import com.aleksandrov.core.data.models.Character
 import javax.inject.Inject
 
 class CharacterViewModel @Inject constructor(

@@ -1,8 +1,8 @@
 package com.aleksandrov.feature_characters
 
 import androidx.paging.PageKeyedDataSource
-import com.aleksandrov.core.data.Character
 import com.aleksandrov.core.data.RickRepository
+import com.aleksandrov.core.data.models.Character
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

@@ -1,15 +1,27 @@
 package com.aleksandrov.feature_episodes
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.aleksandrov.core.di.Episode
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import com.aleksandrov.core.data.models.Episode
 import javax.inject.Inject
 
-class EpisodesViewModel @Inject constructor(private val episode: Episode) : ViewModel() {
+class EpisodesViewModel @Inject constructor(
+    private val dataSourceFactory: EpisodesDataSourceFactory
+) :
+    ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = episode.episodes
+    val listLiveData: LiveData<PagedList<Episode>> by lazy { init() }
+
+    private fun init(): LiveData<PagedList<Episode>> {
+        val listConfig = PagedList.Config.Builder()
+            .setEnablePlaceholders(true)
+            .setPageSize(20)
+            .setInitialLoadSizeHint(20)
+            .build()
+        return LivePagedListBuilder<Int, Episode>(dataSourceFactory, listConfig)
+            .build()
     }
-    val text: LiveData<String> = _text
+
 }

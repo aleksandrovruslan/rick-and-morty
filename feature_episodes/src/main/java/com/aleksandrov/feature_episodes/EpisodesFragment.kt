@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.aleksandrov.core.utils.ViewModelFactory
 import com.aleksandrov.feature_episodes.di.inject
+import kotlinx.android.synthetic.main.fragment_episodes.view.*
 import javax.inject.Inject
 
 class EpisodesFragment : Fragment() {
@@ -27,10 +28,13 @@ class EpisodesFragment : Fragment() {
         inject()
         episodesViewModel = ViewModelProvider(this, factory).get(EpisodesViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_episodes, container, false)
-        val textView: TextView = root.findViewById(R.id.text_gallery)
-        episodesViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+        val recycler = root.episodes_recycler
+        recycler.layoutManager = LinearLayoutManager(context)
+        val adapter = EpisodePagedListAdapter()
+        recycler.adapter = adapter
+        episodesViewModel.listLiveData.observe(
+            viewLifecycleOwner,
+            Observer { adapter.submitList(it) })
         return root
     }
 }

@@ -1,8 +1,8 @@
-package com.aleksandrov.core.data
+package com.aleksandrov.core.data.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Location(
+data class Origin(
     @SerializedName("name")
     val name: String,
     @SerializedName("url")

@@ -1,4 +1,4 @@
-package com.aleksandrov.core.data
+package com.aleksandrov.core.data.models
 
 import com.google.gson.annotations.SerializedName
 

@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.aleksandrov.core.data.Character
+import com.aleksandrov.core.data.models.Character
 import com.bumptech.glide.Glide
 
 class CharacterPagedListAdapter :
