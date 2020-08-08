@@ -9,7 +9,8 @@ import dagger.Component
 
 @FeatureScope
 @Component(
-    modules = [CharacterViewModelModule::class, ViewModelFactoryModule::class]
+    modules = [CharacterViewModelModule::class, ViewModelFactoryModule::class,
+        DataSourceModule::class]
     , dependencies = [CoreComponentProvider::class]
 )
 interface CharacterComponent : BaseFragmentComponent<CharactersFragment> {

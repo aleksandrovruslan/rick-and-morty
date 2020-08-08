@@ -1,16 +1,27 @@
 package com.aleksandrov.feature_characters
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.aleksandrov.core.di.Character
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import com.aleksandrov.core.data.Character
 import javax.inject.Inject
 
-class CharacterViewModel @Inject constructor(private val character: Character) : ViewModel() {
+class CharacterViewModel @Inject constructor(
+    private val factory: CharacterDataSourceFactory
+) :
+    ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = character.character
+    val listLiveData: LiveData<PagedList<Character>> by lazy { init() }
+
+    private fun init(): LiveData<PagedList<Character>> {
+        val pagedConfig =
+            PagedList.Config.Builder()
+                .setEnablePlaceholders(true)
+                .setInitialLoadSizeHint(20)
+                .setPageSize(20).build()
+        return LivePagedListBuilder<Int, Character>(factory, pagedConfig)
+            .build()
     }
-    val text: LiveData<String> = _text
 
 }
