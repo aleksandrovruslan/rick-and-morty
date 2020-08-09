@@ -27,5 +27,9 @@ android {
 }
 
 dependencies {
+    def paging_version = "2.1.2"
+
+    implementation "androidx.paging:paging-runtime:$paging_version"
+    testImplementation "androidx.paging:paging-common:$paging_version"
     implementation project(':core')
 }

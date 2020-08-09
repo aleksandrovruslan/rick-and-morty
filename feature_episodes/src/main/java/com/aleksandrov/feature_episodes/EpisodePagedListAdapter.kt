@@ -28,7 +28,7 @@ class DiffCallBack : DiffUtil.ItemCallback<Episode>() {
     }
 
     override fun areContentsTheSame(oldItem: Episode, newItem: Episode): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.equals(newItem)
     }
 
 }

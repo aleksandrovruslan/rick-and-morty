@@ -10,6 +10,7 @@ import javax.inject.Inject
 
 class EpisodesDataSource @Inject constructor(private val repository: RickRepository) :
     PageKeyedDataSource<Int, Episode>() {
+
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Episode>
@@ -19,7 +20,7 @@ class EpisodesDataSource @Inject constructor(private val repository: RickReposit
                 val result = repository.getEpisodes()
                 result?.let {
                     GlobalScope.launch(Dispatchers.Main) {
-                        callback.onResult(result.results, 0, 2)
+                        callback.onResult(result.results, null, 2)
                     }
                 }
             } catch (e: Exception) {
@@ -29,32 +30,20 @@ class EpisodesDataSource @Inject constructor(private val repository: RickReposit
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Episode>) {
-        try {
-            GlobalScope.launch(Dispatchers.IO) {
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
                 val result = repository.getEpisodes(params.key)
                 result?.let {
                     GlobalScope.launch(Dispatchers.Main) {
                         callback.onResult(result.results, params.key + 1)
                     }
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Episode>) {
-        if (params.key < 2) {
-            callback.onResult(ArrayList(), 1)
-        } else {
-            GlobalScope.launch(Dispatchers.IO) {
-                val result = repository.getEpisodes(params.key)
-                result?.let {
-                    GlobalScope.launch(Dispatchers.Main) {
-                        callback.onResult(result.results, params.key - 1)
-                    }
-                }
-            }
-        }
     }
 }

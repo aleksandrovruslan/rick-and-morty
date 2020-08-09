@@ -7,7 +7,11 @@ import com.aleksandrov.core.di.DaggerCoreComponent
 
 class RickApplication : Application(), App {
 
-    private val component: CoreComponentProvider by lazy { DaggerCoreComponent.create() }
+    private val component: CoreComponentProvider by lazy {
+        DaggerCoreComponent.builder()
+            .application(this)
+            .build()
+    }
 
     override fun getCoreComponent(): CoreComponentProvider {
         return component

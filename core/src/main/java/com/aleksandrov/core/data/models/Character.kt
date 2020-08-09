@@ -16,7 +16,7 @@ data class Character(
     @SerializedName("gender")
     val gender: String,
     val origin: Origin,
-    val location: Location,
+    val location: CharacterLocation,
     @SerializedName("image")
     val image: String
 )
